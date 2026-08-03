@@ -1,10 +1,27 @@
+/* ----------------------------- */
+/* RV PATCH COMMAND - Sprint 1   */
+/* ----------------------------- */
+
+*{
+    box-sizing:border-box;
+}
+
 body{
+
     margin:0;
-    background:#202124;
-    font-family:Arial, Helvetica, sans-serif;
+
+    background:#111315;
+
+    color:white;
+
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
     display:flex;
+
     justify-content:center;
-    padding:40px;
+
+    padding:20px;
+
 }
 
 .phone{
@@ -13,27 +30,92 @@ body{
 
     min-height:844px;
 
-    background:white;
+    background:#1B1D21;
 
-    border-radius:30px;
+    border-radius:28px;
 
     overflow:hidden;
 
-    box-shadow:0px 20px 60px rgba(0,0,0,.35);
+    box-shadow:0 25px 60px rgba(0,0,0,.55);
 
 }
 
-.header{
 
-    padding:30px;
+/* ---------- Progress ---------- */
+
+.progress{
+
+    display:flex;
+
+    align-items:center;
+
+    padding:18px;
+
+    background:#24272C;
 
 }
+
+.step{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#353A42;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+}
+
+.step.active{
+
+    background:#2D6CDF;
+
+}
+
+.line{
+
+    flex:1;
+
+    height:3px;
+
+    background:#3B4149;
+
+}
+
+
+/* ---------- Screens ---------- */
+
+.screen{
+
+    padding:28px;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+
+/* ---------- Header ---------- */
 
 h1{
 
-    margin:0;
+    margin-top:0;
 
-    color:#005BBB;
+    margin-bottom:25px;
+
+    color:#63B3FF;
 
     font-size:34px;
 
@@ -41,26 +123,122 @@ h1{
 
 h2{
 
-    margin-top:35px;
+    margin-top:8px;
 
-    margin-bottom:5px;
+    margin-bottom:10px;
+
+    font-size:30px;
+
+}
+
+.rvInfo{
+
+    color:#BBBBBB;
+
+    margin-bottom:4px;
+
+}
+
+.jobTitle{
+
+    color:#DDDDDD;
+
+    margin-bottom:25px;
 
 }
 
 .status{
 
-    margin-top:25px;
+    background:#4A4106;
 
-    padding:16px;
+    color:#FFE66D;
 
-    background:#FFF3B3;
+    padding:15px;
 
-    border-radius:14px;
+    border-radius:16px;
 
     text-align:center;
 
     font-weight:bold;
 
+}
+
+
+/* ---------- Buttons ---------- */
+
+.bigButton{
+
+    width:100%;
+
+    margin-top:24px;
+
+    padding:24px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#2D6CDF;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.bigButton:hover{
+
+    background:#3E7EEF;
+
+}
+
+.nextButton{
+
+    width:100%;
+
+    margin-top:35px;
+
+    padding:20px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#34A853;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+/* ---------- Checklist ---------- */
+
+label{
+
+    display:block;
+
+    padding:18px 0;
+
     font-size:22px;
+
+    border-bottom:1px solid #30343A;
+
+}
+
+input[type="checkbox"]{
+
+    transform:scale(1.5);
+
+    margin-right:15px;
 
 }

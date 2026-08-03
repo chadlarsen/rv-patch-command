@@ -1,39 +1,216 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RV Patch Command</title>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RV Patch Command</title>
-
-<link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 <div class="phone">
 
-    <div class="header">
+    <!-- Progress Bar -->
 
-        <h1>RV Patch Command</h1>
+    <div class="progress">
 
-        <h2>Kelly Haviland</h2>
+        <div class="step active">🧰</div>
+        <div class="line"></div>
 
-        <p>2020 Jayco Whitehawk</p>
+        <div class="step">🚐</div>
+        <div class="line"></div>
 
-        <p>Solar Vent Cover Installation</p>
+        <div class="step">🏕️</div>
+        <div class="line"></div>
 
-        <div class="status">
+        <div class="step">✅</div>
 
-            🟡 PREPARING
+    </div>
+
+
+    <!-- HOME SCREEN -->
+
+    <section id="homeScreen" class="screen">
+
+        <div class="header">
+
+            <h1>RV Patch Command</h1>
+
+            <h2>Kelly Haviland</h2>
+
+            <p class="rvInfo">
+                2020 Jayco Whitehawk
+            </p>
+
+            <p class="jobTitle">
+                Solar Vent Cover Installation
+            </p>
+
+            <div class="status">
+                🟡 PREPARING
+            </div>
 
         </div>
 
-    </div>
+        <button class="bigButton" onclick="showScreen('partsScreen')">
+            🧰 PREP
+        </button>
+
+    </section>
+
+
+    <!-- PARTS -->
+
+    <section id="partsScreen" class="screen hidden">
+
+        <h2>📦 Parts</h2>
+
+        <label><input type="checkbox"> Solar Vent Covers (2)</label>
+
+        <label><input type="checkbox"> Dicor Self Leveling</label>
+
+        <label><input type="checkbox"> Butyl Tape</label>
+
+        <button class="nextButton"
+            onclick="showScreen('toolsScreen')">
+
+            NEXT →
+
+        </button>
+
+    </section>
+
+
+    <!-- TOOLS -->
+
+    <section id="toolsScreen" class="screen hidden">
+
+        <h2>🔧 Tools</h2>
+
+        <label><input type="checkbox"> Ladder</label>
+
+        <label><input type="checkbox"> Drill</label>
+
+        <label><input type="checkbox"> #2 Square Bit</label>
+
+        <label><input type="checkbox"> Caulk Gun</label>
+
+        <label><input type="checkbox"> Impact Driver</label>
+
+        <button class="nextButton"
+            onclick="showScreen('consumablesScreen')">
+
+            NEXT →
+
+        </button>
+
+    </section>
+
+
+    <!-- CONSUMABLES -->
+
+    <section id="consumablesScreen" class="screen hidden">
+
+        <h2>🧴 Consumables</h2>
+
+        <label><input type="checkbox"> Alcohol Wipes</label>
+
+        <label><input type="checkbox"> Paper Towels</label>
+
+        <label><input type="checkbox"> Gloves</label>
+
+        <label><input type="checkbox"> Trash Bag</label>
+
+        <button class="nextButton"
+            onclick="showScreen('driveScreen')">
+
+            NEXT →
+
+        </button>
+
+    </section>
+
+
+    <!-- DRIVE -->
+
+    <section id="driveScreen" class="screen hidden">
+
+        <h2>🚐 Drive</h2>
+
+        <p>
+            Kelly Haviland
+        </p>
+
+        <p>
+            123 Main Street
+        </p>
+
+        <button class="bigButton">
+
+            🧭 NAVIGATE
+
+        </button>
+
+        <button class="nextButton"
+            onclick="showScreen('onsiteScreen')">
+
+            NEXT →
+
+        </button>
+
+    </section>
+
+
+    <!-- ON SITE -->
+
+    <section id="onsiteScreen" class="screen hidden">
+
+        <h2>🏕️ On Site</h2>
+
+        <button class="bigButton">
+
+            ▶ START WORK
+
+        </button>
+
+        <button class="nextButton"
+            onclick="showScreen('finishScreen')">
+
+            NEXT →
+
+        </button>
+
+    </section>
+
+
+    <!-- FINISH -->
+
+    <section id="finishScreen" class="screen hidden">
+
+        <h2>✅ Finish</h2>
+
+        <button class="bigButton">
+
+            📷 Photos
+
+        </button>
+
+        <button class="bigButton">
+
+            📝 Notes
+
+        </button>
+
+        <button class="bigButton">
+
+            ✔ Finish Job
+
+        </button>
+
+    </section>
 
 </div>
 
