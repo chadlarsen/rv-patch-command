@@ -1,0 +1,35 @@
+﻿# RV Patch Command Roadmap
+
+
+## Sprint 1
+- Interactive phone prototype
+- Kelly Haviland test job
+- Load Truck
+- Drive
+- On Site
+- Finish
+
+
+## Sprint 2
+- Real checklist
+- Job status
+- Timer
+
+
+## Sprint 3
+- GHL integration
+
+
+## Sprint 4
+- Google Sheets labor tracking
+
+
+## Sprint 5
+- Box Hero integration
+
+
+## Future
+- Offline mode
+- AI Service Assistant
+- Service manuals
+- Inventory

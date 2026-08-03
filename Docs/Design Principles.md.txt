@@ -1,0 +1,34 @@
+﻿</> Markdown
+
+
+# RV Patch Command Design Principles
+
+
+1. The Job is the center of everything.
+
+
+2. One Tap.
+If something takes multiple menus, redesign it.
+
+
+3. Offline First.
+Everything needed to repair an RV should work without cell service.
+
+
+4. Remove Searches.
+Every feature should eliminate one search.
+
+
+5. Build for the Technician.
+Office software already exists.
+
+
+6. The Next Action Should Be Obvious.
+The app should guide the technician.
+
+
+7. Keep It Simple.
+If a feature doesn't save time on a real job, don't build it.
+
+
+8. Every screen must answer one question. Load Truck → What do I need? Drive → How do I get there? On Site → What do I need to repair this RV? Finish → What do I need before I leave?
