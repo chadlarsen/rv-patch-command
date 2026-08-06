@@ -2,18 +2,21 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>RV Patch Command</title>
 
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
 
 <div class="phone">
 
-    <!-- Progress Bar -->
+    <!-- Progress -->
 
     <div class="progress">
 
@@ -31,186 +34,234 @@
     </div>
 
 
-    <!-- HOME SCREEN -->
 
-    <section id="homeScreen" class="screen">
+    <!-- Permanent Job Header -->
 
-        <div class="header">
+    <header class="jobHeader">
 
-            <h1>RV Patch Command</h1>
+        <h1>RV Patch Command</h1>
 
-            <h2>Kelly Haviland</h2>
+        <h2>Kelly Haviland</h2>
 
-            <p class="rvInfo">
-                2020 Jayco Whitehawk
-            </p>
+        <p class="coach">
 
-            <p class="jobTitle">
-                Solar Vent Cover Installation
-            </p>
+            2020 Jayco Whitehawk
 
-            <div class="status">
-                🟡 PREPARING
-            </div>
+        </p>
+
+        <p class="repair">
+
+            Solar Vent Cover Installation
+
+        </p>
+
+        <hr>
+
+        <p class="address">
+
+            📍 123 Main Street<br>
+
+            Salt Lake City, UT
+
+        </p>
+
+        <div class="quickActions">
+
+            <button>📞 CALL</button>
+
+            <button>💬 TEXT</button>
+
+            <button>🧭 NAVIGATE</button>
 
         </div>
 
-        <button class="bigButton" onclick="showScreen('partsScreen')">
-            🧰 PREP
-        </button>
+    </header>
 
-    </section>
 
 
-    <!-- PARTS -->
+    <!-- Workspace -->
 
-    <section id="partsScreen" class="screen hidden">
+    <main id="workspace">
 
-        <h2>📦 Parts</h2>
 
-        <label><input type="checkbox"> Solar Vent Covers (2)</label>
 
-        <label><input type="checkbox"> Dicor Self Leveling</label>
+        <!-- HOME -->
 
-        <label><input type="checkbox"> Butyl Tape</label>
+        <section id="homeScreen" class="screen">
 
-        <button class="nextButton"
-            onclick="showScreen('toolsScreen')">
+            <div class="status">
 
-            NEXT →
+                🟡 PREP
 
-        </button>
+            </div>
 
-    </section>
+            <button class="bigButton"
+                onclick="showScreen('partsScreen')">
 
+                🧰 PREP
 
-    <!-- TOOLS -->
+            </button>
 
-    <section id="toolsScreen" class="screen hidden">
+        </section>
 
-        <h2>🔧 Tools</h2>
 
-        <label><input type="checkbox"> Ladder</label>
 
-        <label><input type="checkbox"> Drill</label>
+        <!-- PARTS -->
 
-        <label><input type="checkbox"> #2 Square Bit</label>
+        <section id="partsScreen" class="screen hidden">
 
-        <label><input type="checkbox"> Caulk Gun</label>
+            <h2>📦 Parts</h2>
 
-        <label><input type="checkbox"> Impact Driver</label>
+            <label><input type="checkbox"> Solar Vent Covers</label>
 
-        <button class="nextButton"
-            onclick="showScreen('consumablesScreen')">
+            <label><input type="checkbox"> Dicor</label>
 
-            NEXT →
+            <label><input type="checkbox"> Butyl Tape</label>
 
-        </button>
+            <button class="nextButton"
+                onclick="showScreen('toolsScreen')">
 
-    </section>
+                NEXT →
 
+            </button>
 
-    <!-- CONSUMABLES -->
+        </section>
 
-    <section id="consumablesScreen" class="screen hidden">
 
-        <h2>🧴 Consumables</h2>
 
-        <label><input type="checkbox"> Alcohol Wipes</label>
+        <!-- TOOLS -->
 
-        <label><input type="checkbox"> Paper Towels</label>
+        <section id="toolsScreen" class="screen hidden">
 
-        <label><input type="checkbox"> Gloves</label>
+            <h2>🔧 Tools</h2>
 
-        <label><input type="checkbox"> Trash Bag</label>
+            <label><input type="checkbox"> Ladder</label>
 
-        <button class="nextButton"
-            onclick="showScreen('driveScreen')">
+            <label><input type="checkbox"> Drill</label>
 
-            NEXT →
+            <label><input type="checkbox"> Impact</label>
 
-        </button>
+            <label><input type="checkbox"> Caulk Gun</label>
 
-    </section>
+            <button class="nextButton"
+                onclick="showScreen('consumablesScreen')">
 
+                NEXT →
 
-    <!-- DRIVE -->
+            </button>
 
-    <section id="driveScreen" class="screen hidden">
+        </section>
 
-        <h2>🚐 Drive</h2>
 
-        <p>
-            Kelly Haviland
-        </p>
 
-        <p>
-            123 Main Street
-        </p>
+        <!-- CONSUMABLES -->
 
-        <button class="bigButton">
+        <section id="consumablesScreen" class="screen hidden">
 
-            🧭 NAVIGATE
+            <h2>🧴 Consumables</h2>
 
-        </button>
+            <label><input type="checkbox"> Gloves</label>
 
-        <button class="nextButton"
-            onclick="showScreen('onsiteScreen')">
+            <label><input type="checkbox"> Alcohol Wipes</label>
 
-            NEXT →
+            <label><input type="checkbox"> Paper Towels</label>
 
-        </button>
+            <button class="nextButton"
+                onclick="showScreen('driveScreen')">
 
-    </section>
+                NEXT →
 
+            </button>
 
-    <!-- ON SITE -->
+        </section>
 
-    <section id="onsiteScreen" class="screen hidden">
 
-        <h2>🏕️ On Site</h2>
 
-        <button class="bigButton">
+        <!-- DRIVE -->
 
-            ▶ START WORK
+        <section id="driveScreen" class="screen hidden">
 
-        </button>
+            <div class="status">
 
-        <button class="nextButton"
-            onclick="showScreen('finishScreen')">
+                🔵 DRIVE
 
-            NEXT →
+            </div>
 
-        </button>
+            <button class="bigButton">
 
-    </section>
+                🧭 NAVIGATE
 
+            </button>
 
-    <!-- FINISH -->
+            <button class="nextButton"
+                onclick="showScreen('onsiteScreen')">
 
-    <section id="finishScreen" class="screen hidden">
+                ARRIVED →
 
-        <h2>✅ Finish</h2>
+            </button>
 
-        <button class="bigButton">
+        </section>
 
-            📷 Photos
 
-        </button>
 
-        <button class="bigButton">
+        <!-- ON SITE -->
 
-            📝 Notes
+        <section id="onsiteScreen" class="screen hidden">
 
-        </button>
+            <div class="status">
 
-        <button class="bigButton">
+                🟢 ON SITE
 
-            ✔ Finish Job
+            </div>
 
-        </button>
+            <button class="bigButton">
 
-    </section>
+                ▶ START WORK
+
+            </button>
+
+            <button class="nextButton"
+                onclick="showScreen('finishScreen')">
+
+                NEXT →
+
+            </button>
+
+        </section>
+
+
+
+        <!-- FINISH -->
+
+        <section id="finishScreen" class="screen hidden">
+
+            <div class="status">
+
+                ⚫ COMPLETE
+
+            </div>
+
+            <button class="bigButton">
+
+                📷 Photos
+
+            </button>
+
+            <button class="bigButton">
+
+                📝 Notes
+
+            </button>
+
+            <button class="bigButton">
+
+                ✔ Finish Job
+
+            </button>
+
+        </section>
+
+    </main>
 
 </div>
 
