@@ -37,55 +37,75 @@
 
     <!-- Permanent Job Header -->
 
-    <header class="jobHeader">
+   <header class="jobHeader">
 
-        <h1>RV Patch Command</h1>
+    <h1>RV Patch Command</h1>
 
-        <h2>Kelly Haviland</h2>
+    <h2 id="customerName">Select an appointment</h2>
 
-        <p class="coach">
+    <p class="coach" id="vehicleInfo">
+        RV information not yet connected
+    </p>
 
-            2020 Jayco Whitehawk
+    <p class="repair" id="repairDescription">
+        Select an appointment
+    </p>
 
-        </p>
+    <hr>
 
-        <p class="repair">
+    <p class="address" id="jobAddress">
+        📍 Select an appointment
+    </p>
 
-            Solar Vent Cover Installation
+    <div class="quickActions">
 
-        </p>
+        <button id="callButton">
+            📞 CALL
+        </button>
 
-        <hr>
+        <button id="textButton">
+            💬 TEXT
+        </button>
 
-        <p class="address">
+        <button id="navigateButton">
+            🧭 NAVIGATE
+        </button>
 
-            📍 123 Main Street<br>
+    </div>
 
-            Salt Lake City, UT
-
-        </p>
-
-        <div class="quickActions">
-
-            <button>📞 CALL</button>
-
-            <button>💬 TEXT</button>
-
-            <button>🧭 NAVIGATE</button>
-
-        </div>
-
-    </header>
-
+</header>
 
 
     <!-- Workspace -->
 
     <main id="workspace">
 
+                <!-- SCHEDULE -->
+
+        <section id="scheduleScreen" class="screen hidden">
+
+            <div class="status">
+                📅 SCHEDULE
+            </div>
+
+            <h2>Today's Appointments</h2>
+
+            <div id="appointments">
+                Loading appointments...
+            </div>
+
+            <button class="nextButton"
+                onclick="showScreen('homeScreen')">
+
+                ← BACK
+
+            </button>
+
+        </section>
 
 
-        <!-- HOME -->
+
+                <!-- HOME -->
 
         <section id="homeScreen" class="screen">
 
@@ -96,111 +116,110 @@
             </div>
 
             <button class="bigButton"
-                onclick="showScreen('partsScreen')">
+                onclick="showScreen('scheduleScreen')">
 
-                🧰 PREP
+                📅 SCHEDULE
 
             </button>
+
+           <button class="bigButton"
+    onclick="showScreen('prepScreen')">
+
+    🧰 PREP
+
+</button>
 
         </section>
 
 
 
-        <!-- PARTS -->
+       <!-- PREP -->
 
-        <section id="partsScreen" class="screen hidden">
+<section id="prepScreen" class="screen hidden">
 
-            <h2>📦 Parts</h2>
+    <div class="status">
+        🟡 PREP
+    </div>
 
-            <label><input type="checkbox"> Solar Vent Covers</label>
+    <h2>🧰 Prep Checklist</h2>
 
-            <label><input type="checkbox"> Dicor</label>
+    <label>
+        <input type="checkbox"
+               data-prep="prep"
+               data-item="Solar Vent Covers">
+        Solar Vent Covers
+    </label>
 
-            <label><input type="checkbox"> Butyl Tape</label>
+    <label>
+        <input type="checkbox"
+               data-prep="prep"
+               data-item="Ladder">
+        Ladder
+    </label>
 
-            <button class="nextButton"
-                onclick="showScreen('toolsScreen')">
+    <label>
+        <input type="checkbox"
+               data-prep="prep"
+               data-item="Gloves">
+        Gloves
+    </label>
 
-                NEXT →
+    <button class="nextButton"
+            onclick="showScreen('homeScreen')">
 
-            </button>
+        ← BACK
 
-        </section>
+    </button>
 
+    <button class="nextButton"
+            onclick="showScreen('driveScreen')">
 
+        READY → 
 
-        <!-- TOOLS -->
+    </button>
 
-        <section id="toolsScreen" class="screen hidden">
-
-            <h2>🔧 Tools</h2>
-
-            <label><input type="checkbox"> Ladder</label>
-
-            <label><input type="checkbox"> Drill</label>
-
-            <label><input type="checkbox"> Impact</label>
-
-            <label><input type="checkbox"> Caulk Gun</label>
-
-            <button class="nextButton"
-                onclick="showScreen('consumablesScreen')">
-
-                NEXT →
-
-            </button>
-
-        </section>
-
-
-
-        <!-- CONSUMABLES -->
-
-        <section id="consumablesScreen" class="screen hidden">
-
-            <h2>🧴 Consumables</h2>
-
-            <label><input type="checkbox"> Gloves</label>
-
-            <label><input type="checkbox"> Alcohol Wipes</label>
-
-            <label><input type="checkbox"> Paper Towels</label>
-
-            <button class="nextButton"
-                onclick="showScreen('driveScreen')">
-
-                NEXT →
-
-            </button>
-
-        </section>
+</section>
 
 
 
         <!-- DRIVE -->
 
-        <section id="driveScreen" class="screen hidden">
+<section id="driveScreen" class="screen hidden">
 
-            <div class="status">
+    <div class="status">
 
-                🔵 DRIVE
+        🔵 DRIVE
 
-            </div>
+    </div>
 
-            <button class="bigButton">
+    <h2>On the Way</h2>
 
-                🧭 NAVIGATE
+    <p class="address" id="driveAddress">
+        📍 No address selected
+    </p>
 
-            </button>
+    <button class="bigButton"
+        id="driveNavigateButton">
 
-            <button class="nextButton"
-                onclick="showScreen('onsiteScreen')">
+        🧭 NAVIGATE
 
-                ARRIVED →
+    </button>
 
-            </button>
+    <button class="nextButton"
+        onclick="showScreen('prepScreen')">
 
-        </section>
+        ← BACK
+
+    </button>
+
+    <button class="nextButton"
+        onclick="showScreen('onsiteScreen')">
+
+        ARRIVED →
+
+    </button>
+
+</section>
 
 
 
@@ -221,11 +240,18 @@
             </button>
 
             <button class="nextButton"
-                onclick="showScreen('finishScreen')">
+    onclick="showScreen('driveScreen')">
 
-                NEXT →
+    ← BACK
 
-            </button>
+</button>
+
+<button class="nextButton"
+    onclick="showScreen('finishScreen')">
+
+    NEXT →
+
+</button>
 
         </section>
 

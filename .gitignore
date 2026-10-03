@@ -13,3 +13,7 @@ node_modules/
 # Build folders
 dist/
 build/
+backend/google-tokens.json
+
+# Environment secrets
+.env

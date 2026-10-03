@@ -1,0 +1,32 @@
+{
+  "name": "rv-patch-command",
+  "version": "1.0.0",
+  "description": "Mobile command center for RV service calls.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chadlarsen/rv-patch-command.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chadlarsen/rv-patch-command/issues"
+  },
+  "homepage": "https://github.com/chadlarsen/rv-patch-command#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "axios": "^1.19.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "googleapis": "^174.0.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
