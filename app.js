@@ -511,7 +511,14 @@ activeChecklist = await findChecklistForJob(activeJob?.id);
 
 console.log("Active checklist:", activeChecklist);
 
-    loadPrepState();
+activeChecklist = await findChecklistForJob(activeJob.id);
+
+console.log("Active checklist:", activeChecklist);
+
+updatePrepCheckboxes();
+
+console.log("Active appointment:", activeAppointment);
+
 
     console.log("Active appointment:", activeAppointment);
 
