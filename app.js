@@ -12,82 +12,6 @@ let activeChecklist = null;
 // PREP CHECKLIST STORAGE
 // ------------------------------------
 
-function getPrepStorageKey() {
-
-    if (!activeAppointment || !activeAppointment.id) {
-        return null;
-    }
-
-    return `rvpatch-prep-${activeAppointment.id}`;
-}
-
-
-function loadPrepState() {
-
-    const key = getPrepStorageKey();
-
-    if (!key) {
-        prepState = {
-            parts: [],
-            tools: [],
-            consumables: []
-        };
-
-        updatePrepCheckboxes();
-
-        return;
-    }
-
-    const saved = localStorage.getItem(key);
-
-    if (saved) {
-
-        try {
-
-            prepState = JSON.parse(saved);
-
-        } catch (error) {
-
-            console.error("Unable to load prep state:", error);
-
-            prepState = {
-                parts: [],
-                tools: [],
-                consumables: []
-            };
-
-        }
-
-    } else {
-
-        prepState = {
-            parts: [],
-            tools: [],
-            consumables: []
-        };
-
-    }
-
-    updatePrepCheckboxes();
-
-}
-
-
-function savePrepState() {
-
-    const key = getPrepStorageKey();
-
-    if (!key) {
-        return;
-    }
-
-    localStorage.setItem(
-        key,
-        JSON.stringify(prepState)
-    );
-
-}
-
 
 function updatePrepCheckboxes() {
 
@@ -507,9 +431,6 @@ async function selectAppointment(index) {
 
 console.log("Active job:", activeJob);
 
-activeChecklist = await findChecklistForJob(activeJob?.id);
-
-console.log("Active checklist:", activeChecklist);
 
 activeChecklist = await findChecklistForJob(activeJob.id);
 
