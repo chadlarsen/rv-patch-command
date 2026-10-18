@@ -4,6 +4,8 @@
 
 let calendarAppointments = [];
 let activeAppointment = null;
+let activeJob = null;
+let activeChecklist = null;
 
 
 // ------------------------------------
@@ -89,61 +91,94 @@ function savePrepState() {
 
 function updatePrepCheckboxes() {
 
-    const checkboxes =
-        document.querySelectorAll(
-            "input[data-prep][data-item]"
+    const container = document.getElementById("prepChecklist");
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    if (!activeChecklist || !activeChecklist.job_checklist_items) {
+        container.innerHTML = "<p>No checklist assigned to this job.</p>";
+        return;
+    }
+
+    activeChecklist.job_checklist_items.forEach(checklistItem => {
+
+        const label = document.createElement("label");
+
+        const checkbox = document.createElement("input");
+
+        checkbox.type = "checkbox";
+        checkbox.dataset.prep = "prep";
+        checkbox.dataset.item = checklistItem.checklist_items.item;
+
+        checkbox.checked = checklistItem.completed || false;
+
+        checkbox.addEventListener(
+            "change",
+            handlePrepCheckbox
         );
 
-    checkboxes.forEach(checkbox => {
+        label.appendChild(checkbox);
+        label.appendChild(
+            document.createTextNode(` ${checklistItem.checklist_items.item}`)
+        );
 
-        const category =
-            checkbox.dataset.prep;
-
-        const item =
-            checkbox.dataset.item;
-
-        checkbox.checked =
-            prepState[category]?.includes(item) || false;
-
+        container.appendChild(label);
     });
-
 }
 
 
-function handlePrepCheckbox(event) {
+async function handlePrepCheckbox(event) {
 
     const checkbox = event.target;
 
-    const category =
-        checkbox.dataset.prep;
+    const item = checkbox.dataset.item;
 
-    const item =
-        checkbox.dataset.item;
+    const checklistRecord =
+        activeChecklist?.job_checklist_items?.find(
+            checklistItem =>
+                checklistItem.checklist_items?.item === item
+        );
 
-    if (!prepState[category]) {
-        prepState[category] = [];
+    if (!checklistRecord) {
+        console.error("Checklist item not found:", item);
+        return;
     }
 
-    if (checkbox.checked) {
+    try {
 
-        if (!prepState[category].includes(item)) {
+        const response = await fetch(
+            `/checklists/job-item/${checklistRecord.id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    completed: checkbox.checked
+                })
+            }
+        );
 
-            prepState[category].push(item);
-
+        if (!response.ok) {
+            throw new Error("Unable to save checklist item.");
         }
 
-    } else {
+        const updatedItem = await response.json();
 
-        prepState[category] =
-            prepState[category].filter(
-                existingItem => existingItem !== item
-            );
+        console.log("Checklist item saved:", updatedItem);
+
+    } catch (error) {
+
+        console.error("Checklist save error:", error);
+
+        // Put the checkbox back if the save failed
+        checkbox.checked = !checkbox.checked;
 
     }
-
-    savePrepState();
-
-    console.log("Prep state:", prepState);
 
 }
 
@@ -352,13 +387,113 @@ const end = event.end;
     }
 
 }
+// ------------------------------------
+// FIND SUPABASE JOB
+// ------------------------------------
 
+async function findJobForAppointment(event) {
+
+    const summary = event.customer || "";
+
+    let customerName = summary;
+
+    if (summary.includes(" - ")) {
+
+        const parts = summary.split(" - ");
+
+        customerName = parts.shift().trim();
+
+    }
+
+    if (!customerName) {
+
+        console.log("No customer name found for job lookup.");
+        return null;
+
+    }
+
+    try {
+
+        const response = await fetch(
+            `/jobs/customer/${encodeURIComponent(customerName)}`
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to find job.");
+
+        }
+
+        const jobs = await response.json();
+
+        if (!jobs.length) {
+
+            console.log("No Supabase job found for:", customerName);
+
+            return null;
+
+        }
+
+        console.log("Supabase job found:", jobs[0]);
+
+        return jobs[0];
+
+    } catch (error) {
+
+        console.error("Job lookup error:", error);
+
+        return null;
+
+    }
+
+}
+
+// ------------------------------------
+// FIND CHECKLIST FOR JOB
+// ------------------------------------
+
+async function findChecklistForJob(jobId) {
+
+    if (!jobId) {
+        console.log("No job ID available for checklist lookup.");
+        return null;
+    }
+
+    try {
+
+        const response = await fetch(
+            `/checklists/job/${encodeURIComponent(jobId)}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to find checklist.");
+        }
+
+        const checklists = await response.json();
+
+        if (!checklists.length) {
+            console.log("No checklist found for job:", jobId);
+            return null;
+        }
+
+        console.log("Checklist found:", checklists[0]);
+
+        return checklists[0];
+
+    } catch (error) {
+
+        console.error("Checklist lookup error:", error);
+
+        return null;
+
+    }
+}
 
 // ------------------------------------
 // SELECT APPOINTMENT
 // ------------------------------------
 
-function selectAppointment(index) {
+async function selectAppointment(index) {
 
     const event = calendarAppointments[index];
 
@@ -368,6 +503,13 @@ function selectAppointment(index) {
     }
 
     activeAppointment = event;
+    activeJob = await findJobForAppointment(event);
+
+console.log("Active job:", activeJob);
+
+activeChecklist = await findChecklistForJob(activeJob?.id);
+
+console.log("Active checklist:", activeChecklist);
 
     loadPrepState();
 
@@ -437,7 +579,7 @@ function selectAppointment(index) {
 
     if (vehicleElement) {
         vehicleElement.textContent =
-            "RV information not yet connected";
+            activeJob?.vehicle_info || "RV information not connected";
     }
 
     // --------------------------------

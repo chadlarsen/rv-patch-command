@@ -70,19 +70,29 @@ router.get("/appointments", async (req, res) => {
             auth: oauth2Client
         });
 
-        const response = await calendar.events.list({
+       const now = new Date();
 
-            calendarId: "primary",
+const startOfToday = new Date(now);
+startOfToday.setHours(0, 0, 0, 0);
 
-            timeMin: new Date().toISOString(),
+const startOfTomorrow = new Date(startOfToday);
+startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
 
-            maxResults: 20,
+const response = await calendar.events.list({
 
-            singleEvents: true,
+    calendarId: "primary",
 
-            orderBy: "startTime"
+    timeMin: startOfToday.toISOString(),
 
-        });
+    timeMax: startOfTomorrow.toISOString(),
+
+    maxResults: 100,
+
+    singleEvents: true,
+
+    orderBy: "startTime"
+
+});
 
         const appointments = response.data.items.map(event => {
 
