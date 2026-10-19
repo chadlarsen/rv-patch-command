@@ -5,7 +5,7 @@
 let calendarAppointments = [];
 let activeAppointment = null;
 let activeJob = null;
-let activeChecklist = null;
+let activeChecklists = [];
 
 
 // ------------------------------------
@@ -23,59 +23,71 @@ function updatePrepCheckboxes() {
 
     container.innerHTML = "";
 
-    if (!activeChecklist || !activeChecklist.job_checklist_items) {
-        container.innerHTML = "<p>No checklist assigned to this job.</p>";
+    if (!activeChecklists || activeChecklists.length === 0) {
+        container.innerHTML = "<p>No checklists assigned to this job.</p>";
         return;
     }
 
-    activeChecklist.job_checklist_items.forEach(checklistItem => {
+    activeChecklists.forEach(checklist => {
 
-        const label = document.createElement("label");
+        // Checklist title
+        const heading = document.createElement("h3");
 
-        const checkbox = document.createElement("input");
+        heading.textContent =
+            checklist.checklist_templates?.name || "Checklist";
 
-        checkbox.type = "checkbox";
-        checkbox.dataset.prep = "prep";
-        checkbox.dataset.item = checklistItem.checklist_items.item;
+        container.appendChild(heading);
 
-        checkbox.checked = checklistItem.completed || false;
+        // Checklist items
+        if (!checklist.job_checklist_items) {
+            return;
+        }
 
-        checkbox.addEventListener(
-            "change",
-            handlePrepCheckbox
-        );
+        checklist.job_checklist_items.forEach(checklistItem => {
 
-        label.appendChild(checkbox);
-        label.appendChild(
-            document.createTextNode(` ${checklistItem.checklist_items.item}`)
-        );
+            const label = document.createElement("label");
 
-        container.appendChild(label);
+            const checkbox = document.createElement("input");
+
+            checkbox.type = "checkbox";
+
+            checkbox.dataset.itemId = checklistItem.id;
+
+            checkbox.checked = checklistItem.completed || false;
+
+            checkbox.addEventListener(
+                "change",
+                handlePrepCheckbox
+            );
+
+            label.appendChild(checkbox);
+
+            label.appendChild(
+                document.createTextNode(
+                    ` ${checklistItem.checklist_items.item}`
+                )
+            );
+
+            container.appendChild(label);
+        });
     });
 }
-
 
 async function handlePrepCheckbox(event) {
 
     const checkbox = event.target;
 
-    const item = checkbox.dataset.item;
+    const itemId = checkbox.dataset.itemId;
 
-    const checklistRecord =
-        activeChecklist?.job_checklist_items?.find(
-            checklistItem =>
-                checklistItem.checklist_items?.item === item
-        );
-
-    if (!checklistRecord) {
-        console.error("Checklist item not found:", item);
+    if (!itemId) {
+        console.error("Checklist item ID not found.");
         return;
     }
 
     try {
 
         const response = await fetch(
-            `/checklists/job-item/${checklistRecord.id}`,
+            `/checklists/job-item/${itemId}`,
             {
                 method: "PATCH",
                 headers: {
@@ -376,11 +388,11 @@ async function findJobForAppointment(event) {
 // FIND CHECKLIST FOR JOB
 // ------------------------------------
 
-async function findChecklistForJob(jobId) {
+async function findChecklistsForJob(jobId) {
 
     if (!jobId) {
         console.log("No job ID available for checklist lookup.");
-        return null;
+        return [];
     }
 
     try {
@@ -390,26 +402,25 @@ async function findChecklistForJob(jobId) {
         );
 
         if (!response.ok) {
-            throw new Error("Unable to find checklist.");
+            throw new Error("Unable to find checklists.");
         }
 
         const checklists = await response.json();
 
         if (!checklists.length) {
-            console.log("No checklist found for job:", jobId);
-            return null;
+            console.log("No checklists found for job:", jobId);
+            return [];
         }
 
-        console.log("Checklist found:", checklists[0]);
+        console.log("Checklists found:", checklists);
 
-        return checklists[0];
+        return checklists;
 
     } catch (error) {
 
         console.error("Checklist lookup error:", error);
 
-        return null;
-
+        return [];
     }
 }
 
@@ -432,9 +443,9 @@ async function selectAppointment(index) {
 console.log("Active job:", activeJob);
 
 
-activeChecklist = await findChecklistForJob(activeJob.id);
+activeChecklists = await findChecklistsForJob(activeJob.id);
 
-console.log("Active checklist:", activeChecklist);
+console.log("Active checklists:", activeChecklists);
 
 updatePrepCheckboxes();
 
